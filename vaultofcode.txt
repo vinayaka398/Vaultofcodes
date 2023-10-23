@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Password Strength Indicator</title >
+</head>
+<body>
+    <lable for="password">vaultofcode:</lable>
+    <input type="password" id="password" onkeyup="checkPasswordStrength()"><br>
+    <div id="password-strength"></div>
+    <script>
+        function checkPasswordStrength() {
+            var password = document.getElementById("password").value;
+            var strengthIndicator = document.getElementById("password-strength");
+
+            var length = password.length;
+            var hasLowerCase = /[a-z]/.test(password);
+            var hasUpperCase = /[A-Z]/.test(password);
+            var hasDigit = /\d/.test(password);
+            var hasSpecialChar = /[!@#\$%\^&\*]/.test(password);
+
+            var strength = 0;
+
+            if (length > 8) {
+                strength = 2;
+            } else if (length > 6) {
+                strength = 1;
+            }
+
+            if (hasLowerCase) strength++;
+            if (hasUpperCase) strength++;
+            if (hasDigit) strength++;
+            if (hasSpecialChar) strength++;
+
+            var strengthText = "Weak";
+            if (strength >= 4) {
+                strengthText = "Strong";
+            } else if (strength >= 2) {
+                strengthText = "Medium";
+            }
+
+            strengthIndicator.innerHTML = "Password Strength: " + strengthText;
+        }
+    </script>
+</body>
+</html>
